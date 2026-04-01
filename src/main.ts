@@ -4,16 +4,17 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // 🔥 IMPORTANT: Use Render's PORT or fallback to 3000
+  // Render requires listening on process.env.PORT
   const port = process.env.PORT || 3000;
 
   app.enableCors({
-    origin: ['https://dbaronx.com', 'http://localhost:3000'],
+    origin: ['https://dbaronx.com', 'http://localhost:3000', 'http://localhost:3001'],
     credentials: true,
   });
 
   await app.listen(port);
 
-  console.log(✅ NestJS API is running on port ${port});
+  console.log(NestJS API is running on port ${port});
 }
+
 bootstrap();
