@@ -14,7 +14,7 @@ async function bootstrap() {
 
   await app.listen(port);
 
-  console.log(NestJS API is running on port ${port});
+  console.log(`NestJS API is running on port ${port}`);
 }
 
 bootstrap();
