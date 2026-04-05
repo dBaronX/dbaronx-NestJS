@@ -1,5 +1,12 @@
 import axios from "axios"
 
+export function createDreams() {
+	return "dreams";
+}
+export function createDream() {
+	return "created";
+}
+
 export const getDreams = async () => {
   const res = await axios.get(process.env.FASTAPI_URL + "/dreams")
   return res.data
