@@ -2,7 +2,7 @@
 import axios from "axios";
 
 /**
- * Simple synchronous functions (optional local usage)
+ * Synchronous local functions
  */
 export function createDreamLocal() {
   return "created";
