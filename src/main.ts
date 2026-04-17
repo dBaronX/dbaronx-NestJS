@@ -5,13 +5,6 @@ import { randomUUID } from 'crypto';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
-import { IsOptional, IsString } from 'class-validator';
-
-export class EnvVariables {
-  @IsOptional()
-  @IsString()
-  FRONTEND_URL?: string;
-}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -19,11 +12,10 @@ async function bootstrap() {
   });
 
   const configService = app.get(ConfigService);
-  const frontendUrl = configService.get<string>('app.frontendUrl');
+  const frontendUrl =
+    configService.get<string>('app.frontendUrl') || 'https://dbaronx.com';
   const port = configService.get<number>('app.port') ?? 3000;
-const frontendUrl =
-  configService.get<string>('app.frontendUrl') || 'https://dbaronx.com';
-  
+
   app.enableCors({
     origin: [
       frontendUrl,
@@ -56,7 +48,7 @@ const frontendUrl =
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new LoggingInterceptor());
 
-  await app.listen(process.env.PORT ? Number(process.env.PORT) : 3000, "0.0.0.0");
+  await app.listen(Number(process.env.PORT || port || 3000), '0.0.0.0');
 }
 
 bootstrap();
